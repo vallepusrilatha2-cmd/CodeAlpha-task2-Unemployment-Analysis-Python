@@ -1,0 +1,79 @@
+//importing packages//
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+//adding datasets//
+data = pd.read_csv('Unemployment in India.csv')
+//displaying the datasets//
+print(data.head(768))
+data.describe()
+print(data.info())
+data.columns = data.columns.str.strip()
+print(data.columns)
+sns.pairplot(data, hue="Region")
+plt.show()
+print("missing values")
+print(data.isnull().sum())
+//converting//
+print(data.columns.tolist())
+data.columns = data.columns.str.strip()
+data['Date'] = pd.to_datetime(data['Date'],dayfirst=True)
+print(data.head(24))
+//dropping missing values//
+data = data.dropna()
+print("cleaned data")
+print(data.head(768))
+//summary//
+print("\nStatistical Summary:")
+avg_rate = data['Estimated Unemployment Rate (%)'].mean()
+print("\nAverage Unemployment Rate:",avg_rate)
+//displaying graph//
+plt.figure(figsize=(20,15))
+plt.plot(data['Date'],data['Estimated Unemployment Rate (%)'],marker='o',color='purple')
+plt.title(" Unemployment in India",color='blue')
+plt.xlabel("Year",color='darkgreen')
+plt.ylabel("Unemployment Rate (%)",color='darkgreen')
+plt.grid(True)
+plt.show()
+//covid 19//
+covid_data = data[data['Date'].dt.year >=2020]
+plt.figure(figsize=(20,6))
+plt.plot(covid_data['Date'],covid_data['Estimated Unemployment Rate (%)'],color='purple')
+plt.title("Impact of COVID-19 on Unemployment",color='red')
+plt.xlabel("Year",color='red')
+plt.ylabel("Unemployment Rate (%)",color='red')
+plt.grid(True)
+plt.show()
+//bar graph//
+state_data = data.groupby('Region')['Estimated Unemployment Rate (%)'].mean()
+plt.figure(figsize=(12,6))
+state_data.plot(kind='bar',color='green')
+plt.title(" Unemployment in India",color='darkblue')
+plt.xlabel("Region",color='darkblue')
+plt.ylabel("Unemployment Rate (%)",color='darkblue')
+plt.grid(True)
+plt.show()
+//pie chat//
+state_data = data.groupby('Region')['Estimated Unemployment Rate (%)'].mean()
+plt.figure(figsize=(12,6))
+state_data.plot(kind='pie')
+plt.title(" Unemployment in India",color='orange')
+plt.grid(True)
+plt.show()
+//line graph//
+state_data = data.groupby('Region')['Estimated Unemployment Rate (%)'].mean()
+plt.figure(figsize=(12,6))
+state_data.plot(kind='line')
+plt.title(" Unemployment in India",color='blue')
+plt.xlabel("Region",color='darkgreen')
+plt.ylabel("Unemployment Rate (%)",color='darkgreen')
+plt.grid(True)
+plt.show()
+//summary of project//
+print('Key Insights:')
+print('1.Identified unemployment trends over time')
+print('2.Observed COVID-19 impact on unemployment rates')
+print('3.Identified unemployment trends over every redion in India through bargraph')
+print('3.Identified unemployment trends over every redion in India through piechat')
+print('3.Identified unemployment trends over every redion in India through linegraph')
