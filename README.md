@@ -1,6 +1,6 @@
 Name : Vallepu Srilatha
 
-company : CodeAlpha
+Company : CodeAlpha
 
 ID : CA/DF1/79359
 
